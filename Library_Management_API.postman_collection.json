@@ -1,0 +1,483 @@
+{
+	"info": {
+		"_postman_id": "library-management-api",
+		"name": "Library Management System API",
+		"description": "Complete API collection for Library Management System with Spring Boot",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Book Management",
+			"item": [
+				{
+					"name": "Get All Books",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/books?page=0&size=10&sort=title",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"books"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "title"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Books by Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/books/category/Fiction",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"books",
+								"category",
+								"Fiction"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Available Books",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/books/available",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"books",
+								"available"
+							]
+						}
+					}
+				},
+				{
+					"name": "Add New Book",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"The Great Gatsby\",\n  \"author\": \"F. Scott Fitzgerald\",\n  \"category\": \"Fiction\",\n  \"totalCopies\": 5\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/books",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"books"
+							]
+						}
+					}
+				},
+				{
+					"name": "Update Book",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"The Great Gatsby - Updated\",\n  \"author\": \"F. Scott Fitzgerald\",\n  \"category\": \"Fiction\",\n  \"totalCopies\": 8\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/books/{{book_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"books",
+								"{{book_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Delete Book",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/books/{{book_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"books",
+								"{{book_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Test Exception Handler",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/books/test-exception",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"books",
+								"test-exception"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Borrower Management",
+			"item": [
+				{
+					"name": "Register New Borrower",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"membershipType\": \"BASIC\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/borrowers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"borrowers"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Borrower Records",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/borrowers/{{borrower_id}}/records",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"borrowers",
+								"{{borrower_id}}",
+								"records"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Overdue Borrowers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/borrowers/overdue",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"borrowers",
+								"overdue"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Borrowing Workflow",
+			"item": [
+				{
+					"name": "Borrow Book",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"bookId\": \"{{book_id}}\",\n  \"borrowerId\": \"{{borrower_id}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/borrow",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"borrow"
+							]
+						}
+					}
+				},
+				{
+					"name": "Return Book",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"bookId\": \"{{book_id}}\",\n  \"borrowerId\": \"{{borrower_id}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/return",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"return"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Active Borrow Records",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/records/active",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"records",
+								"active"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Analytics & Reports",
+			"item": [
+				{
+					"name": "Get Top Borrowed Books",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/analytics/top-borrowed-books",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"analytics",
+								"top-borrowed-books"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Borrower Activity",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/analytics/borrower-activity",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"analytics",
+								"borrower-activity"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Similar Books",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/books/similar/{{book_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"books",
+								"similar",
+								"{{book_id}}"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Availability Summary",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/books/availability-summary",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"books",
+								"availability-summary"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Database & Admin",
+			"item": [
+				{
+					"name": "H2 Database Console",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/h2-console",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"h2-console"
+							]
+						}
+					}
+				},
+				{
+					"name": "Swagger UI",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/swagger-ui.html",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"swagger-ui.html"
+							]
+						}
+					}
+				},
+				{
+					"name": "API Documentation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api-docs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api-docs"
+							]
+						}
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8081",
+			"type": "string"
+		},
+		{
+			"key": "book_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "borrower_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
