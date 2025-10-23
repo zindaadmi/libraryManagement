@@ -145,6 +145,7 @@ Database Layer (H2)
 - **Entities**: JPA entities for database mapping
 - **Exception Handler**: Global exception handling
 - **Scheduler**: Automated tasks
+- **Data Initializer**: Populates database with sample data on startup
 
 ## 🔍 Key Features Explained
 
@@ -193,10 +194,13 @@ public void flagOverdueRecords() {
 3. Test all endpoints using the interactive interface
 
 ### Sample Data
-The application automatically initializes with sample data:
+The application automatically initializes with sample data using the **DataInitializationService**:
 - 10 books across different categories
 - 5 borrowers with different membership types
 - Sample borrow records
+- Fine policies for different book categories
+
+The data initializer runs automatically on application startup to populate the database with realistic test data for immediate API testing.
 
 ## 📊 Sample API Calls
 
