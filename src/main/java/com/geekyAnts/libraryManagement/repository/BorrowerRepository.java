@@ -27,11 +27,6 @@ public interface BorrowerRepository extends JpaRepository<Borrower, UUID> {
     List<Borrower> findBorrowersWithOverdueBooks();
     
     @Query("SELECT b FROM Borrower b WHERE b.isActive = true AND " +
-           "b.id IN (SELECT br.borrower.id FROM BorrowRecord br WHERE " +
-           "br.isActive = true AND br.returnDate IS NULL)")
-    List<Borrower> findBorrowersWithActiveBooks();
-    
-    @Query("SELECT b FROM Borrower b WHERE b.isActive = true AND " +
            "(LOWER(b.name) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
            "LOWER(b.email) LIKE LOWER(CONCAT('%', :searchTerm, '%')))")
     List<Borrower> searchBorrowers(@Param("searchTerm") String searchTerm);

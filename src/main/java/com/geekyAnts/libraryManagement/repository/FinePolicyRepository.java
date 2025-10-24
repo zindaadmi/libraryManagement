@@ -11,11 +11,5 @@ import java.util.UUID;
 @Repository
 public interface FinePolicyRepository extends JpaRepository<FinePolicy, UUID> {
     
-    List<FinePolicy> findByIsActiveTrue();
-    
-    Optional<FinePolicy> findByIdAndIsActiveTrue(UUID id);
-    
     Optional<FinePolicy> findByCategoryAndIsActiveTrue(String category);
-    
-    boolean existsByCategoryAndIsActiveTrue(String category);
 }

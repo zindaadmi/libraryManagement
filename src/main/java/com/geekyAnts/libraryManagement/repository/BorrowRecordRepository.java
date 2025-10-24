@@ -14,26 +14,12 @@ import java.util.UUID;
 @Repository
 public interface BorrowRecordRepository extends JpaRepository<BorrowRecord, UUID> {
     
-    List<BorrowRecord> findByIsActiveTrue();
-    
-    List<BorrowRecord> findByBorrowerIdAndIsActiveTrue(UUID borrowerId);
-    
-    List<BorrowRecord> findByBookIdAndIsActiveTrue(UUID bookId);
-    
     @Query("SELECT br FROM BorrowRecord br WHERE br.isActive = true AND br.returnDate IS NULL")
     List<BorrowRecord> findActiveBorrowRecords();
     
     @Query("SELECT br FROM BorrowRecord br WHERE br.isActive = true AND " +
            "br.returnDate IS NULL AND br.dueDate < CURRENT_DATE")
     List<BorrowRecord> findOverdueBorrowRecords();
-    
-    @Query("SELECT br FROM BorrowRecord br WHERE br.isActive = true AND " +
-           "br.borrower.id = :borrowerId AND br.returnDate IS NULL")
-    List<BorrowRecord> findActiveBorrowRecordsByBorrower(@Param("borrowerId") UUID borrowerId);
-    
-    @Query("SELECT br FROM BorrowRecord br WHERE br.isActive = true AND " +
-           "br.book.id = :bookId AND br.returnDate IS NULL")
-    Optional<BorrowRecord> findActiveBorrowRecordByBook(@Param("bookId") UUID bookId);
     
     @Query("SELECT br FROM BorrowRecord br WHERE br.isActive = true AND " +
            "br.borrower.id = :borrowerId AND br.book.id = :bookId AND br.returnDate IS NULL")
@@ -58,11 +44,6 @@ public interface BorrowRecordRepository extends JpaRepository<BorrowRecord, UUID
     @Query("SELECT COUNT(br) FROM BorrowRecord br WHERE br.isActive = true AND " +
            "br.borrower.id = :borrowerId AND br.returnDate IS NULL")
     long countActiveBorrowRecordsByBorrower(@Param("borrowerId") UUID borrowerId);
-    
-    @Query("SELECT br FROM BorrowRecord br WHERE br.isActive = true AND " +
-           "br.borrowDate >= :startDate AND br.borrowDate <= :endDate")
-    List<BorrowRecord> findBorrowRecordsByDateRange(@Param("startDate") LocalDate startDate, 
-                                                   @Param("endDate") LocalDate endDate);
     
     @Query("SELECT br FROM BorrowRecord br WHERE br.isActive = true AND " +
            "br.returnDate IS NULL AND br.dueDate < :today")

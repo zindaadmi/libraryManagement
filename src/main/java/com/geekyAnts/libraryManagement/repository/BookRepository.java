@@ -15,17 +15,9 @@ import java.util.UUID;
 @Repository
 public interface BookRepository extends JpaRepository<Book, UUID> {
     
-    List<Book> findByIsDeletedFalse();
-    
     Page<Book> findByIsDeletedFalse(Pageable pageable);
     
     List<Book> findByCategoryAndIsDeletedFalse(String category);
-    
-    List<Book> findByIsAvailableTrueAndIsDeletedFalse();
-    
-    List<Book> findByTitleContainingIgnoreCaseAndIsDeletedFalse(String title);
-    
-    List<Book> findByAuthorContainingIgnoreCaseAndIsDeletedFalse(String author);
     
     @Query("SELECT b FROM Book b WHERE b.isDeleted = false AND " +
            "(:category IS NULL OR b.category = :category) AND " +
